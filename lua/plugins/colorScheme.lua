@@ -1,20 +1,11 @@
 return {
   {
-    "catppuccin/nvim",
-    lazy = false,
-    name = "catppuccin",
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme("catppuccin")
-    end,
-  },
-  {
     "navarasu/onedark.nvim",
     config = function()
       require("onedark").setup({
         style = "darker",
       })
-      require("onedark").load()
+      -- require("onedark").load()
     end,
   },
   { "Mofiqul/vscode.nvim" },
@@ -24,13 +15,22 @@ return {
     opts = { style = "moon" },
   },
   { "dracula/vim" },
+  -- {
+  --   "oxfist/night-owl.nvim",
+  --   lazy = false, -- make sure we load this during startup if it is your main colorscheme
+  --   config = function()
+  --     -- load the colorscheme here
+  --     -- require("night-owl").setup()
+  --     vim.cmd.colorscheme("night-owl")
+  --   end,
+  -- },
   {
-    "oxfist/night-owl.nvim",
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    "catppuccin/nvim",
+    lazy = false,
+    name = "catppuccin",
+    priority = 1000,
     config = function()
-      -- load the colorscheme here
-      require("night-owl").setup()
-      vim.cmd.colorscheme("night-owl")
+      vim.cmd.colorscheme("catppuccin")
     end,
   },
 }

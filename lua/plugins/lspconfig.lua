@@ -193,7 +193,7 @@ return {
               "--header-insertion=iwyu",
               "--header-insertion-decorators",
               "--fallback-style=gnu",
-              --"--function-arg-placeholders",
+              "--function-arg-placeholders",
               "--compile-commands-dir=build",
             },
             init_options = {

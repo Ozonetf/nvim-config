@@ -15,6 +15,7 @@ return {
         ensure_installed = {
           "lua_ls",
           "clangd",
+          "glsl_analyzer",
         },
       })
     end,
@@ -164,6 +165,7 @@ return {
               },
             },
           },
+          -- CLANGD LSP setup
           clangd = {
             keys = {
               { "<leader>ch", "<cmd>LspClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
@@ -202,6 +204,32 @@ return {
               clangdFileStatus = true,
               inlayHints = {
                 enable = false,
+              },
+            },
+          },
+          -- GLSL LSP setup
+          glsl_analyzer = {
+            filetypes = {
+              "glsl",
+              "vert",
+              "frag",
+              "geom",
+              "comp",
+              "tesc",
+              "tese",
+              "rgen",
+              "rchit",
+              "rmiss",
+            },
+
+            root_markers = {
+              ".git",
+              "compile_commands.json",
+            },
+
+            settings = {
+              glsl_analyzer = {
+                diagnostics = true,
               },
             },
           },

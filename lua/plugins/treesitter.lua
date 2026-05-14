@@ -32,6 +32,7 @@ return {
       "cmake",
       "diff",
       "html",
+      "glsl",
       "javascript",
       "jsdoc",
       "json",

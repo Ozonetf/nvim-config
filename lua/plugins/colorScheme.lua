@@ -7,8 +7,9 @@ return {
       })
       -- require("onedark").load()
     end,
+    lazy = true,
   },
-  { "Mofiqul/vscode.nvim" },
+  { "Mofiqul/vscode.nvim", lazy = true },
   {
     "folke/tokyonight.nvim",
     lazy = true,

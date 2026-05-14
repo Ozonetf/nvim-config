@@ -1,6 +1,10 @@
 ---@diagnostic disable: unused-local
 return {
   { "ThePrimeagen/vim-be-good" },
+  {
+    "karb94/neoscroll.nvim",
+    opts = {},
+  },
   -- DOWNLOAD nvim-cmp FROM LAZYEXTRA FIRST
   {
     "hrsh7th/nvim-cmp",
@@ -177,4 +181,5 @@ return {
       })
     end,
   },
+  { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {} },
 }

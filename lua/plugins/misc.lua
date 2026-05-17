@@ -182,4 +182,13 @@ return {
     end,
   },
   { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {} },
+  {
+    "folke/drop.nvim",
+    opts = {
+      interval = 100, -- every 150ms we update the drops
+      screensaver = 1000 * 3 * 60, -- show after 5 minutes. Set to false, to disable},
+      theme = "binary",
+    },
+  },
+  { "eandrju/cellular-automaton.nvim" },
 }

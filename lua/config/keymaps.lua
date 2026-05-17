@@ -12,3 +12,5 @@ vim.keymap.set("x", "p", '"_dP')
 vim.keymap.set("i", "lkj", "<Esc>")
 vim.keymap.set("n", "<A-l>", "<cmd>BufferLineMoveNext<CR>")
 vim.keymap.set("n", "<A-h>", "<cmd>BufferLineMovePrev<CR>")
+
+vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")

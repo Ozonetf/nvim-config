@@ -4,8 +4,6 @@
 vim.cmd("packadd nvim.undotree")
 vim.keymap.set("n", "<leader>u", require("undotree").open)
 vim.keymap.set("n", "<leader>rn", ":IncRename ")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("i", "<C-h>", "<Left>")
 vim.keymap.set("i", "<C-l>", "<Right>")
 vim.keymap.set("x", "p", '"_dP')
@@ -14,3 +12,8 @@ vim.keymap.set("n", "<A-l>", "<cmd>BufferLineMoveNext<CR>")
 vim.keymap.set("n", "<A-h>", "<cmd>BufferLineMovePrev<CR>")
 
 vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
+
+-- page up and down are configured in neoscroll post-hook on misc lua
+-- to prevent keybind overide
+-- vim.keymap.set("n", "<C-d>", "<C-d>zz")
+-- vim.keymap.set("n", "<C-u>", "<C-u>zz")

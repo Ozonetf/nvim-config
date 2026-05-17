@@ -14,7 +14,7 @@ return {
     },
     keys = {
       { "s", false },
-      { "S", false },
+      -- { "S", false },
     },
   },
   { "nvim-mini/mini.surround", version = false, opts = {} },

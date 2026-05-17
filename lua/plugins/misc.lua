@@ -3,9 +3,15 @@ return {
   { "ThePrimeagen/vim-be-good" },
   {
     "karb94/neoscroll.nvim",
-    opts = {},
-  },
-  -- DOWNLOAD nvim-cmp FROM LAZYEXTRA FIRST
+    opts = {
+      performance_mode = true,
+      hide_cursor = true,
+      duration_multiplier = 0.2,
+      post_hook = function()
+        vim.cmd("normal! zz")
+      end,
+    },
+  }, -- DOWNLOAD nvim-cmp FROM LAZYEXTRA FIRST
   {
     "hrsh7th/nvim-cmp",
     --@param opts cmp.ConfigSchema

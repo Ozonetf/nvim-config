@@ -43,3 +43,11 @@ vim.filetype.add({
     end,
   }),
 })
+-- set the window seperator to a blue hue
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    vim.api.nvim_set_hl(0, "WinSeparator", {
+      fg = "#00aaff",
+    })
+  end,
+})

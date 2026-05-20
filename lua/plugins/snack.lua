@@ -7,7 +7,18 @@ return {
       explorer = { enabled = true },
       indent = { enabled = true },
       input = { enabled = true },
-      picker = { enabled = true },
+      picker = {
+        enabled = true,
+        win = {
+          preview = {
+            wo = {
+              wrap = true,
+              linebreak = true,
+              breakindent = true,
+            },
+          },
+        },
+      },
       notifier = { enabled = true },
       quickfile = { enabled = true },
       scope = { enabled = true },

@@ -13,7 +13,7 @@ return {
       },
     },
     keys = {
-      { "s", false },
+      -- { "s", false },
       -- { "S", false },
     },
   },

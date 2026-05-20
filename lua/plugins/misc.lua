@@ -4,7 +4,13 @@ return {
   {
     "karb94/neoscroll.nvim",
     opts = {
-      performance_mode = true,
+      ignored_filetypes = {
+        "alpha",
+        "dashboard",
+        "snacks_dashboard",
+        "lazy",
+      },
+      -- performance_mode = true,
       hide_cursor = true,
       duration_multiplier = 0.2,
       post_hook = function()

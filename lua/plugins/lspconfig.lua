@@ -64,7 +64,7 @@ return {
         -- Be aware that you also will need to properly configure your LSP server to
         -- provide the code lenses.
         codelens = {
-          enabled = false,
+          enabled = true,
         },
         -- Enable this to enable the builtin LSP folding on Neovim.
         -- Be aware that you also will need to properly configure your LSP server to
@@ -196,7 +196,11 @@ return {
               "--header-insertion-decorators",
               "--fallback-style=gnu",
               "--function-arg-placeholders",
-              "--compile-commands-dir=build",
+              "--pch-storage=memory",
+              "--j=4",
+              "--all-scopes-completion",
+              "--cross-file-rename",
+              "--ranking-model=heuristics",
             },
             init_options = {
               usePlaceholders = true,

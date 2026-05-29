@@ -19,50 +19,68 @@ return {
     },
   }, -- DOWNLOAD nvim-cmp FROM LAZYEXTRA FIRST
   {
+    "onsails/lspkind.nvim",
+  },
+  {
     "hrsh7th/nvim-cmp",
-    --@param opts cmp.ConfigSchema
+
+    ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
-      -- disable inline completion
-      opts.experimental = opts.experimental or {}
-      opts.experimental.ghost_text = false
+      local cmp = require("cmp")
+      local lspkind = require("lspkind")
+
       local has_words_before = function()
-        unpack = unpack or table.unpack
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+
+        if col == 0 then
+          return false
+        end
+
+        local current_line = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+
+        return current_line:sub(col, col):match("%s") == nil
       end
 
-      local cmp = require("cmp")
+      -- no auto select
+      opts.preselect = cmp.PreselectMode.None
 
-      -- completeopt
-      opts.completion = vim.tbl_extend("force", opts.completion or {}, {
-        completeopt = "menu,menuone,noinsert",
-      })
-      cmp.setup({
-        completion = {
-          completeopt = "menu,menuone,noselect",
-        },
-        preselect = cmp.PreselectMode.None,
-        experimental = {
-          ghost_text = false,
-        },
-        enabled = function()
-          local context = require("cmp.config.context")
+      -- don't insert until explicitly selected
+      opts.completion = {
+        completeopt = "menu,menuone,noselect,noselect",
+      }
 
-          -- disable completion in comments
-          if vim.bo.buftype == "prompt" then
-            return false
-          end
-          if context.in_treesitter_capture("comment") or context.in_syntax_group("Comment") then
-            return false
-          end
-
-          return true
-        end,
-        sources = {
-          { name = "nvim_lsp" }, -- important for macros
-          { name = "buffer" },
-          { name = "path" },
+      opts.view = {
+        docs = {
+          auto_open = true,
         },
+      }
+
+      -- disable ghost text
+      opts.experimental = {
+        ghost_text = false,
+      }
+
+      -- disable completion in comments/prompts
+      opts.enabled = function()
+        local context = require("cmp.config.context")
+
+        if vim.bo.buftype == "prompt" then
+          return false
+        end
+
+        if context.in_treesitter_capture("comment") or context.in_syntax_group("Comment") then
+          return false
+        end
+
+        return true
+      end
+
+      -- completion sources
+      opts.sources = cmp.config.sources({
+        { name = "nvim_lsp" },
+        { name = "path" },
+      }, {
+        { name = "buffer" },
       })
 
       -- sorting
@@ -72,6 +90,7 @@ return {
           cmp.config.compare.offset,
           cmp.config.compare.exact,
           cmp.config.compare.score,
+          cmp.config.compare.locality,
           cmp.config.compare.recently_used,
           cmp.config.compare.kind,
           cmp.config.compare.sort_text,
@@ -80,15 +99,27 @@ return {
         },
       }
 
-      -- window styling
+      -- more visible borders
       opts.window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
+        completion = cmp.config.window.bordered({
+          border = "rounded",
+          winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+        }),
+
+        documentation = cmp.config.window.bordered({
+          border = "rounded",
+          winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+        }),
       }
 
-      -- formatting (simple labels; swap in lspkind if you use it)
-      local lspkind = require("lspkind")
+      -- stronger border highlight
+      vim.api.nvim_set_hl(0, "FloatBorder", {
+        fg = "#7aa2f7",
+        bg = nil,
+        bold = true,
+      })
 
+      -- formatting
       opts.formatting = {
         format = lspkind.cmp_format({
           mode = "symbol_text",
@@ -103,16 +134,25 @@ return {
         }),
       }
 
-      opts.mapping = vim.tbl_extend("force", opts.mapping, {
+      -- super tab
+      opts.mapping = vim.tbl_extend("force", opts.mapping or {}, {
+
+        -- tab selects next item
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
-            cmp.select_next_item({ behavior = require("cmp").SelectBehavior.Select })
-          elseif vim.snippet.active({ direction = 1 }) then
+            cmp.select_next_item({
+              behavior = cmp.SelectBehavior.Insert,
+            })
             vim.schedule(function()
-              vim.snippet.jump(1)
+              cmp.confirm({
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true,
+              })
             end)
+          elseif vim.snippet.active({ direction = 1 }) then
+            vim.snippet.jump(1)
           elseif has_words_before() then
-            cmp.complete({ select = false })
+            cmp.complete()
           else
             fallback()
           end
@@ -120,20 +160,23 @@ return {
 
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
-            cmp.select_prev_item()
+            cmp.select_prev_item({
+              behavior = cmp.SelectBehavior.Select,
+            })
           elseif vim.snippet.active({ direction = -1 }) then
-            vim.schedule(function()
-              vim.snippet.jump(-1)
-            end)
+            vim.snippet.jump(-1)
           else
             fallback()
           end
         end, { "i", "s" }),
+
+        -- enter confirms only selected item
+        ["<CR>"] = cmp.mapping.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = false,
+        }),
       })
     end,
-  },
-  {
-    "onsails/lspkind.nvim",
   },
   {
     "akinsho/bufferline.nvim",

@@ -143,12 +143,12 @@ return {
             cmp.select_next_item({
               behavior = cmp.SelectBehavior.Insert,
             })
-            vim.schedule(function()
-              cmp.confirm({
-                behavior = cmp.ConfirmBehavior.Replace,
-                select = true,
-              })
-            end)
+            -- vim.schedule(function()
+            --   cmp.confirm({
+            --     behavior = cmp.ConfirmBehavior.Replace,
+            --     select = true,
+            --   })
+            -- end)
           elseif vim.snippet.active({ direction = 1 }) then
             vim.snippet.jump(1)
           elseif has_words_before() then

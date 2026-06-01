@@ -178,10 +178,32 @@ return {
       })
     end,
   },
+  -- {
+  --   "nvim-tree/nvim-web-devicons",
+  --   opts = {
+  --     override = {
+  --       hpp = {
+  --         icon = "󰙲", -- choose any icon you like
+  --         color = "#A52A2A", -- brown
+  --         name = "Hpp",
+  --       },
+  --     },
+  --   },
+  -- },
+  { -- Mini Icons
+    "nvim-mini/mini.icons",
+    opts = {
+      extension = {
+        hpp = {
+          glyph = "󰙲",
+          hl = "MiniIconsPurple",
+        },
+      },
+    },
+  },
   {
     "akinsho/bufferline.nvim",
     version = "*",
-    dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
       vim.opt.termguicolors = true
       require("bufferline").setup({

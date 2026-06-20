@@ -51,3 +51,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     })
   end,
 })
+
+-- stronger border highlight
+vim.api.nvim_set_hl(0, "FloatBorder", {
+  fg = "#7aa2f7",
+  bg = nil,
+  bold = true,
+})

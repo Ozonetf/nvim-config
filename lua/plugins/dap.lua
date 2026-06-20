@@ -74,7 +74,8 @@ return {
       dap.configurations.cpp = {
         {
           name = "Launch file",
-          type = "codelldb",
+          type = "gdb",
+          -- type = "codelldb",
           request = "launch",
           program = function()
             return vim.fn.input("Executable: ", vim.fn.getcwd() .. "/", "file")

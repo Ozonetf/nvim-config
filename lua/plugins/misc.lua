@@ -112,13 +112,6 @@ return {
         }),
       }
 
-      -- stronger border highlight
-      vim.api.nvim_set_hl(0, "FloatBorder", {
-        fg = "#7aa2f7",
-        bg = nil,
-        bold = true,
-      })
-
       -- formatting
       opts.formatting = {
         format = lspkind.cmp_format({

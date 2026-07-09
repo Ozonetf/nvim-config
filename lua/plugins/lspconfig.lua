@@ -188,6 +188,8 @@ return {
             },
             cmd = {
               "clangd",
+              -- check for WinLib compiler on Windows
+              "--query-driver=C:/Users/**/AppData/Local/Microsoft/WinGet/Packages/**/mingw64/bin/*.exe",
               "--background-index",
               --               "--index-threads=6",
               "--clang-tidy",
